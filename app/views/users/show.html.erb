@@ -1,0 +1,30 @@
+<div class="row">
+  <aside class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @user.name %></h3>
+      </div>
+      <div class="panel-body">
+        <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
+      </div>
+    </div>
+  </aside>
+  <div class="col-md-8">
+  <p><span class="orange b"><%= @user.nickname %></span>
+  <p class="orange b">自己紹介</p>
+  <p><%= @user.detail %></p>
+  </div>
+  <%= link_to 'プロフィールを編集する', edit_user_path(@user) %>
+ 
+  <% if current_user.admin? && !current_user?(user) %>
+    <%= link_to "delete", @user, method: :delete,data: { confirm: "You sure?" } %>
+  <% end %>
+    
+  <div class="col-xs-8">
+    <ul class="nav nav-tabs nav-justified">
+      <li><a href="#">Posts</a></li>
+      <li><a href="#">Friends</a></li>
+    </ul>
+    <%= render 'posts/posts', posts: @posts %>
+  </div>
+</div>
